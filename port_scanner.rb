@@ -19,9 +19,8 @@ handle = ->() {
   now = Time.now + 10
   loop do
     _,available,_ = IO.select([], sockets, [], now-Time.now)
-    break unless available
 
-    available.each do |socket|
+    (available or break).each do |socket|
       begin
         socket.connect_nonblock socket.remote_address
       rescue Errno::EISCONN
