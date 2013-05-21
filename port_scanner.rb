@@ -24,8 +24,7 @@ handle = ->() {
       begin
         socket.connect_nonblock socket.remote_address
       rescue Errno::EISCONN
-        ports.push socket.remote_address.ip_port
-        sockets.delete socket
+        ports.push sockets.delete(socket).remote_address.ip_port
       rescue Errno::EINVAL
         sockets.delete socket
       end
